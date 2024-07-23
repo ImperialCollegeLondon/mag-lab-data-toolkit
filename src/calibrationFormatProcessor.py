@@ -1,14 +1,19 @@
-from calibrationFormat import CalibrationFormat 
+from src.calibrationFormat import CalibrationFormat 
 from pathlib import Path
 from pydantic import ValidationError
+import yaml
 
 class CalibrationFormatProcessor:
 
     def loadFromPath(calibrationPath: Path) -> CalibrationFormat:
         try:
-            model = CalibrationFormat.parse_file(calibrationPath)
+            as_dict = yaml.safe_load(open(calibrationPath))
+            model = CalibrationFormat(**as_dict)
             return model
         except ValidationError as e:
+            print(e)
+            return None
+        except FileNotFoundError as e:
             print(e)
             return None
         

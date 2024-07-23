@@ -2,8 +2,9 @@ from datetime import datetime
 from enum import Enum
 from pathlib import Path
 
-from pydantic import BaseModel
+from pydantic import BaseModel, model_validator
 from typing import List, Optional
+from typing_extensions import Self
 
 class Unit(Enum):
     NT = "nT"
@@ -18,6 +19,13 @@ class OffsetCollection(BaseModel):
     X: List[float]
     Y: List[float]
     Z: List[float]
+
+    @model_validator(mode='after')
+    def check_lengths_match(self) -> Self: 
+        if len(self.X) != len(self.Y) or len(self.Y) != len(self.Z) or len(self.X) != len(self.Z):
+            raise ValueError('Length of offset lists do not match')
+        return self
+
 
 class SingleCalibration(BaseModel):
     timestamps: List[datetime]
