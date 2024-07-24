@@ -41,11 +41,6 @@ class CalibrationFormat(BaseModel):
     valid_end: datetime
     calibrations: List[SingleCalibration]
 
-if __name__ == "__main__":
-    path = Path("examples/calibrations.json")
-    model = CalibrationFormat.parse_file(path)
-    print(model)
-
 
 
 

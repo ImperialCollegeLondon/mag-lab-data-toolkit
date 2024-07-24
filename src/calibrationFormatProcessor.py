@@ -2,6 +2,7 @@ from src.calibrationFormat import CalibrationFormat
 from pathlib import Path
 from pydantic import ValidationError
 import yaml
+import logging
 
 class CalibrationFormatProcessor:
 
@@ -11,10 +12,10 @@ class CalibrationFormatProcessor:
             model = CalibrationFormat(**as_dict)
             return model
         except ValidationError as e:
-            print(e)
+            logging.error(e)
             return None
         except FileNotFoundError as e:
-            print(e)
+            logging.error(e)
             return None
         
     def loadFromDict(calibrationDict: dict) -> CalibrationFormat:
@@ -22,7 +23,7 @@ class CalibrationFormatProcessor:
             model = CalibrationFormat(**calibrationDict)
             return model
         except ValidationError as e:
-            print(e)
+            logging.error(e)
             return None
         
     def writeToFile(CalibrationFormat: CalibrationFormat, filepath: Path):
@@ -31,7 +32,7 @@ class CalibrationFormatProcessor:
             with open(filepath, "w+") as f:
                 f.write(json)
         except Exception as e:
-            print(e)
-            print(f"Failed to write calibration to {filepath}")
+            logging.error(e)
+            logging.error(f"Failed to write calibration to {filepath}")
 
         
