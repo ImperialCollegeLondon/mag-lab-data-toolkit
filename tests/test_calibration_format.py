@@ -1,6 +1,6 @@
 from datetime import datetime
-from src.calibrationFormatProcessor import CalibrationFormatProcessor
-from src.calibrationFormat import Unit, CalibrationFormat
+from src.calibration.calibrationFormatProcessor import CalibrationFormatProcessor
+from src.calibration.calibrationFormat import Unit, CalibrationFormat
 from pydantic import ValidationError
 
 def test_calibration_read():
