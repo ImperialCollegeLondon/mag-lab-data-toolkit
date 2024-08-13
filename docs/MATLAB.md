@@ -6,7 +6,7 @@ This requires the Python code to run in an environment with the MATLAB Runtime i
 
 ## Recommended steps to deploy
 
-1) Build a MATLAB image to compile the code in a standard environment (using `matlab-compiler-image-build.sh`). Can also be done locally on any machine with MATLAB and Docker installed.
+1) Build a MATLAB image to compile the code in a standard environment (using `matlab-compiler-image-build.sh`). The code can also be compiled into an executable locally on any machine with MATLAB installed, but that executable will only be able to run on a compatible operating system.
 
 2) Build an image with the MATLAB Runtime installed, using [`build-base-matlab-runtime.sh`](/deploy-matlab/build-scripts/build-base-matlab-runtime.sh)
 
