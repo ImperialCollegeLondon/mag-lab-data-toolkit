@@ -1,0 +1,25 @@
+FROM matlab-runtime
+
+ARG EXECUTABLE_DIR="executable/"
+ARG EXECUTABLE="exampleFunction"
+ARG SAMPLEDATA="solo_L2_mag-obs-urf-normal-cleaned_20240208_V002.mat"
+
+USER root
+
+COPY examples/python/executable-example.py /app/
+COPY ${EXECUTABLE_DIR}${EXECUTABLE} /app/
+COPY ${SAMPLEDATA} /app/
+
+RUN adduser -u 8765 --disabled-password --gecos "" appuser && \
+    chown -R appuser /app && \
+    chmod +x /app/${EXECUTABLE}
+
+WORKDIR /app
+USER appuser
+
+RUN ls -la .
+RUN python3 -m pip install --user pipx
+
+ENV PATH="$PATH:/home/appuser/.local/bin"
+
+CMD ["python3", "executable-example.py"]
